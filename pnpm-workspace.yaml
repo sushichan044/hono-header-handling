@@ -1,0 +1,5 @@
+onlyBuiltDependencies:
+  - esbuild
+
+patchedDependencies:
+  hono: patches/hono.patch

@@ -1,0 +1,63 @@
+diff --git a/dist/context.js b/dist/context.js
+index 260d10b381c1c0dbc6223fa31e6c294ae061040e..65035c26917f43175ce12c98903bbc703965fb2e 100644
+--- a/dist/context.js
++++ b/dist/context.js
+@@ -8,6 +8,7 @@ var setHeaders = (headers, map = {}) => {
+   }
+   return headers;
+ };
++
+ var Context = class {
+   #rawRequest;
+   #req;
+@@ -101,6 +102,8 @@ var Context = class {
+     this.#renderer = renderer;
+   };
+   header = (name, value, options) => {
++    console.log(`c.header(${name}, ${value}, ${JSON.stringify(options)})`);
++
+     if (value === void 0) {
+       if (this.#headers) {
+         this.#headers.delete(name);
+@@ -134,6 +137,12 @@ var Context = class {
+         this.res.headers.set(name, value);
+       }
+     }
++
++    console.log("After c.header():");
++    console.log("this.#headers", this.#headers);
++    console.log("this.#preparedHeaders", this.#preparedHeaders);
++    console.log("this.res.headers", this.res.headers);
++    console.log("-".repeat(100));
+   };
+   status = (status) => {
+     this.#isFresh = false;
+@@ -153,6 +162,8 @@ var Context = class {
+     return Object.fromEntries(this.#var);
+   }
+   #newResponse(data, arg, headers) {
++    console.log(`c.#newResponse(${JSON.stringify(data)}, ${JSON.stringify(arg)}, ${JSON.stringify(headers)})`);
++
+     if (this.#isFresh && !headers && !arg && this.#status === 200) {
+       return new Response(data, {
+         headers: this.#preparedHeaders
+@@ -180,6 +191,9 @@ var Context = class {
+     this.#headers ??= new Headers();
+     setHeaders(this.#headers, this.#preparedHeaders);
+     if (this.#res) {
++      console.log("Merging headers from this.#res to this.#headers");
++      console.log("this.#headers", this.#headers);
++      console.log("this.#res.headers", this.#res.headers);
+       this.#res.headers.forEach((v, k) => {
+         if (k === "set-cookie") {
+           this.#headers?.append(k, v);
+@@ -187,6 +201,9 @@ var Context = class {
+           this.#headers?.set(k, v);
+         }
+       });
++      console.log("After merging headers from this.#res to this.#headers:");
++      console.log(this.#headers);
++      console.log("-".repeat(100));
+       setHeaders(this.#headers, this.#preparedHeaders);
+     }
+     headers ??= {};
