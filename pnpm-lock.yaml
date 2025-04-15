@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   hono:
-    hash: d6164549fcbd95392649761c2ac7b678a763481eee85124c7ba4346eaf0e507e
+    hash: fa722ee8f6bbd9c1fe129f63244ca490724cf7d3d630b5b51fcc03b9f187827c
     path: patches/hono.patch
 
 importers:
@@ -15,10 +15,10 @@ importers:
     dependencies:
       '@hono/node-server':
         specifier: ^1.14.1
-        version: 1.14.1(hono@4.7.6(patch_hash=d6164549fcbd95392649761c2ac7b678a763481eee85124c7ba4346eaf0e507e))
+        version: 1.14.1(hono@4.7.6(patch_hash=fa722ee8f6bbd9c1fe129f63244ca490724cf7d3d630b5b51fcc03b9f187827c))
       hono:
         specifier: ^4.7.6
-        version: 4.7.6(patch_hash=d6164549fcbd95392649761c2ac7b678a763481eee85124c7ba4346eaf0e507e)
+        version: 4.7.6(patch_hash=fa722ee8f6bbd9c1fe129f63244ca490724cf7d3d630b5b51fcc03b9f187827c)
     devDependencies:
       '@types/node':
         specifier: ^20.11.17
@@ -293,9 +293,9 @@ snapshots:
   '@esbuild/win32-x64@0.25.2':
     optional: true
 
-  '@hono/node-server@1.14.1(hono@4.7.6(patch_hash=d6164549fcbd95392649761c2ac7b678a763481eee85124c7ba4346eaf0e507e))':
+  '@hono/node-server@1.14.1(hono@4.7.6(patch_hash=fa722ee8f6bbd9c1fe129f63244ca490724cf7d3d630b5b51fcc03b9f187827c))':
     dependencies:
-      hono: 4.7.6(patch_hash=d6164549fcbd95392649761c2ac7b678a763481eee85124c7ba4346eaf0e507e)
+      hono: 4.7.6(patch_hash=fa722ee8f6bbd9c1fe129f63244ca490724cf7d3d630b5b51fcc03b9f187827c)
 
   '@types/node@20.17.30':
     dependencies:
@@ -336,7 +336,7 @@ snapshots:
     dependencies:
       resolve-pkg-maps: 1.0.0
 
-  hono@4.7.6(patch_hash=d6164549fcbd95392649761c2ac7b678a763481eee85124c7ba4346eaf0e507e): {}
+  hono@4.7.6(patch_hash=fa722ee8f6bbd9c1fe129f63244ca490724cf7d3d630b5b51fcc03b9f187827c): {}
 
   resolve-pkg-maps@1.0.0: {}
 

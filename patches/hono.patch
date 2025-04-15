@@ -1,25 +1,67 @@
 diff --git a/dist/context.js b/dist/context.js
-index 260d10b381c1c0dbc6223fa31e6c294ae061040e..65035c26917f43175ce12c98903bbc703965fb2e 100644
+index 260d10b381c1c0dbc6223fa31e6c294ae061040e..1cbc7e54a62dea1f50db16a1cb3a5bb87c87a850 100644
 --- a/dist/context.js
 +++ b/dist/context.js
-@@ -8,6 +8,7 @@ var setHeaders = (headers, map = {}) => {
-   }
-   return headers;
- };
-+
- var Context = class {
-   #rawRequest;
-   #req;
-@@ -101,6 +102,8 @@ var Context = class {
+@@ -61,30 +61,21 @@ var Context = class {
+   set res(_res) {
+     this.#isFresh = false;
+     if (this.#res && _res) {
+-      try {
+-        for (const [k, v] of this.#res.headers.entries()) {
+-          if (k === "content-type") {
+-            continue;
+-          }
+-          if (k === "set-cookie") {
+-            const cookies = this.#res.headers.getSetCookie();
+-            _res.headers.delete("set-cookie");
+-            for (const cookie of cookies) {
+-              _res.headers.append("set-cookie", cookie);
+-            }
+-          } else {
+-            _res.headers.set(k, v);
+-          }
++      // これは最新の hono の commit。干渉しそうなので取り込んでおく
++      // https://github.com/honojs/hono/commit/4b2095626f7addeacb1ca3f936831243dac87d80
++      _res = new Response(_res.body, _res)
++      for (const [k, v] of this.#res.headers.entries()) {
++        if (k === 'content-type') {
++          continue
+         }
+-      } catch (e) {
+-        if (e instanceof TypeError && e.message.includes("immutable")) {
+-          this.res = new Response(_res.body, {
+-            headers: _res.headers,
+-            status: _res.status
+-          });
+-          return;
++        if (k === 'set-cookie') {
++          const cookies = this.#res.headers.getSetCookie()
++          _res.headers.delete('set-cookie')
++          for (const cookie of cookies) {
++            _res.headers.append('set-cookie', cookie)
++          }
+         } else {
+-          throw e;
++          _res.headers.set(k, v)
+         }
+       }
+     }
+@@ -101,6 +92,14 @@ var Context = class {
      this.#renderer = renderer;
    };
    header = (name, value, options) => {
 +    console.log(`c.header(${name}, ${value}, ${JSON.stringify(options)})`);
 +
++    // これは最新の hono の commit。干渉しそうなので取り込んでおく
++    // https://github.com/honojs/hono/commit/4b2095626f7addeacb1ca3f936831243dac87d80
++    if (this.finalized) {
++      this.#res = new Response(this.#res.body, this.#res)
++    }
++
      if (value === void 0) {
        if (this.#headers) {
          this.#headers.delete(name);
-@@ -134,6 +137,12 @@ var Context = class {
+@@ -134,6 +133,12 @@ var Context = class {
          this.res.headers.set(name, value);
        }
      }
@@ -32,7 +74,7 @@ index 260d10b381c1c0dbc6223fa31e6c294ae061040e..65035c26917f43175ce12c98903bbc70
    };
    status = (status) => {
      this.#isFresh = false;
-@@ -153,6 +162,8 @@ var Context = class {
+@@ -153,6 +158,8 @@ var Context = class {
      return Object.fromEntries(this.#var);
    }
    #newResponse(data, arg, headers) {
@@ -41,22 +83,25 @@ index 260d10b381c1c0dbc6223fa31e6c294ae061040e..65035c26917f43175ce12c98903bbc70
      if (this.#isFresh && !headers && !arg && this.#status === 200) {
        return new Response(data, {
          headers: this.#preparedHeaders
-@@ -180,6 +191,9 @@ var Context = class {
+@@ -180,6 +187,10 @@ var Context = class {
      this.#headers ??= new Headers();
      setHeaders(this.#headers, this.#preparedHeaders);
      if (this.#res) {
-+      console.log("Merging headers from this.#res to this.#headers");
++      console.log("Merging headers from this.#res.headers to this.#headers");
 +      console.log("this.#headers", this.#headers);
 +      console.log("this.#res.headers", this.#res.headers);
++      console.log("this.#preparedHeaders", this.#preparedHeaders);
        this.#res.headers.forEach((v, k) => {
          if (k === "set-cookie") {
            this.#headers?.append(k, v);
-@@ -187,6 +201,9 @@ var Context = class {
+@@ -187,6 +198,11 @@ var Context = class {
            this.#headers?.set(k, v);
          }
        });
-+      console.log("After merging headers from this.#res to this.#headers:");
-+      console.log(this.#headers);
++      console.log("After merging headers from this.#res.headers to this.#headers:");
++      console.log("this.#headers", this.#headers);
++      console.log("this.#res.headers", this.#res.headers);
++      console.log("this.#preparedHeaders", this.#preparedHeaders);
 +      console.log("-".repeat(100));
        setHeaders(this.#headers, this.#preparedHeaders);
      }
