@@ -21,8 +21,10 @@ app.use(async (c, next) => {
 });
 
 app.get("/", (c) => {
-  c.header("Content-Type", "text/html");
-  return c.body("<html><body><h1>Hello World</h1></body></html>");
+  c.header("Content-Type", "text/html; charset=UTF-8");
+  return c.body(
+    "<html><head><meta charset='UTF-8'></head><body><h1>Hello World</h1></body></html>"
+  );
 });
 
 serve({ fetch: app.fetch }, (info) => {
