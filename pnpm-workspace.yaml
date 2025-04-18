@@ -2,4 +2,4 @@ onlyBuiltDependencies:
   - esbuild
 
 patchedDependencies:
-  hono: patches/hono.patch
+  hono@4.7.7: patches/hono@4.7.7.patch

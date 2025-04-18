@@ -5,9 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
-  hono:
-    hash: fa722ee8f6bbd9c1fe129f63244ca490724cf7d3d630b5b51fcc03b9f187827c
-    path: patches/hono.patch
+  hono@4.7.7:
+    hash: 9b8222607f65c46e088de3e69a7dcec874822b31375e7db133b98ffa89e4265f
+    path: patches/hono@4.7.7.patch
 
 importers:
 
@@ -15,10 +15,10 @@ importers:
     dependencies:
       '@hono/node-server':
         specifier: ^1.14.1
-        version: 1.14.1(hono@4.7.6(patch_hash=fa722ee8f6bbd9c1fe129f63244ca490724cf7d3d630b5b51fcc03b9f187827c))
+        version: 1.14.1(hono@4.7.7(patch_hash=9b8222607f65c46e088de3e69a7dcec874822b31375e7db133b98ffa89e4265f))
       hono:
-        specifier: ^4.7.6
-        version: 4.7.6(patch_hash=fa722ee8f6bbd9c1fe129f63244ca490724cf7d3d630b5b51fcc03b9f187827c)
+        specifier: 4.7.7
+        version: 4.7.7(patch_hash=9b8222607f65c46e088de3e69a7dcec874822b31375e7db133b98ffa89e4265f)
     devDependencies:
       '@types/node':
         specifier: ^20.11.17
@@ -201,8 +201,8 @@ packages:
   get-tsconfig@4.10.0:
     resolution: {integrity: sha512-kGzZ3LWWQcGIAmg6iWvXn0ei6WDtV26wzHRMwDSzmAbcXrTEXxHy6IehI6/4eT6VRKyMP1eF1VqwrVUmE/LR7A==}
 
-  hono@4.7.6:
-    resolution: {integrity: sha512-564rVzELU+9BRqqx5k8sT2NFwGD3I3Vifdb6P7CmM6FiarOSY+fDC+6B+k9wcCb86ReoayteZP2ki0cRLN1jbw==}
+  hono@4.7.7:
+    resolution: {integrity: sha512-2PCpQRbN87Crty8/L/7akZN3UyZIAopSoRxCwRbJgUuV1+MHNFHzYFxZTg4v/03cXUm+jce/qa2VSBZpKBm3Qw==}
     engines: {node: '>=16.9.0'}
 
   resolve-pkg-maps@1.0.0:
@@ -293,9 +293,9 @@ snapshots:
   '@esbuild/win32-x64@0.25.2':
     optional: true
 
-  '@hono/node-server@1.14.1(hono@4.7.6(patch_hash=fa722ee8f6bbd9c1fe129f63244ca490724cf7d3d630b5b51fcc03b9f187827c))':
+  '@hono/node-server@1.14.1(hono@4.7.7(patch_hash=9b8222607f65c46e088de3e69a7dcec874822b31375e7db133b98ffa89e4265f))':
     dependencies:
-      hono: 4.7.6(patch_hash=fa722ee8f6bbd9c1fe129f63244ca490724cf7d3d630b5b51fcc03b9f187827c)
+      hono: 4.7.7(patch_hash=9b8222607f65c46e088de3e69a7dcec874822b31375e7db133b98ffa89e4265f)
 
   '@types/node@20.17.30':
     dependencies:
@@ -336,7 +336,7 @@ snapshots:
     dependencies:
       resolve-pkg-maps: 1.0.0
 
-  hono@4.7.6(patch_hash=fa722ee8f6bbd9c1fe129f63244ca490724cf7d3d630b5b51fcc03b9f187827c): {}
+  hono@4.7.7(patch_hash=9b8222607f65c46e088de3e69a7dcec874822b31375e7db133b98ffa89e4265f): {}
 
   resolve-pkg-maps@1.0.0: {}
 

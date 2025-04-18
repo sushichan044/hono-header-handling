@@ -8,6 +8,7 @@ app.use(async (c, next) => {
 
   const sessionCookie = c.req.header("Cookie");
   if (!sessionCookie) {
+    // This `append: true` destroys prepareHeaders.
     c.header("Set-Cookie", "hoge-session=hoge-session-value", { append: true });
   }
 
@@ -17,10 +18,6 @@ app.use(async (c, next) => {
 app.use(async (c, next) => {
   c.header("X-Debug", "true");
   await next();
-
-  console.log("c.res.headers after c.body():");
-  console.log(c.res.headers);
-  console.log("-".repeat(100));
 });
 
 app.get("/", (c) => {
