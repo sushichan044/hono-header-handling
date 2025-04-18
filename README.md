@@ -47,7 +47,7 @@ In this case, `Context.#res.headers` contains `content-type: text/plain;charset=
 
 ---
 
-Next, if setting the `Content-Type` header in `src/index.ts:22`, the value will be recorded in `Context.#headers` for the reasons just described.
+And Setting the `Content-Type` header in `src/index.ts:22`, the value will be recorded in `Context.#headers` for the reasons just described.
 
 ---
 
