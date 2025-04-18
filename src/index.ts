@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
-
+import { cors } from "hono/cors";
 const app = new Hono();
 
 app.use(async (c, next) => {
@@ -12,6 +12,10 @@ app.use(async (c, next) => {
 
   await next();
 });
+
+// hono/cors uses c.res.headers.set() internally before executing route handler, so Context.#res will be initialized.
+// https://github.com/honojs/hono/blob/5ca6c6ef867e022671b4c429c04d0ff89ed0c37c/src/middleware/cors/index.ts#L83-L91
+app.use(cors());
 
 app.get("/", (c) => {
   c.header("Content-Type", "text/html; charset=UTF-8");
