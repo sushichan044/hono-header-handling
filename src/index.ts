@@ -7,8 +7,8 @@ app.use(async (c, next) => {
   // This is a minimal implementation of the `hono-sessions` Middleware with only the parts relevant to this issue.
   const sessionCookie = c.req.header("Cookie");
   if (!sessionCookie) {
-    // This `append: true` destroys prepareHeaders.
     c.header("Set-Cookie", "hoge-session=hoge-session-value", { append: true });
+    // All subsequent `c.header()` calls will mutate `Context.#headers`.
   }
 
   await next();

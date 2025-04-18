@@ -28,7 +28,7 @@ This bug occurs in implementations that meet the following two conditions:
 
 This section explains the cause of the problem in detail, following the flow of the reproduced implementation of `src/index.ts`.
 
-Calling `c.header()` with `append: true` at `src/index.ts:11` initialize `Context.#headers` and destroys `Context.#prepareHeaders`.
+Calling `c.header()` with `append: true` at `src/index.ts:10` initialize `Context.#headers` and destroys `Context.#prepareHeaders`.
 ref: <https://github.com/honojs/hono/blob/5ca6c6ef867e022671b4c429c04d0ff89ed0c37c/src/context.ts#L531-L545>
 
 > [!NOTE]
@@ -61,7 +61,7 @@ In this branch, `content-type:text/html; charset=UTF-8` set in `Context.#headers
 
 If `Context.#preparedHeaders` contains `content-type:text/html; charset=UTF-8`, then `content-type` in `Context.#headers` is overwritten at the end of the branch, and the response header will contain `content-type:text/html; charset=UTF-8` as expected.
 
-However, this is not the case because we called `c.header()` with `append: true` at `src/index.ts:11`.
+However, this is not the case because we called `c.header()` with `append: true` at `src/index.ts:10`.
 
 ---
 
