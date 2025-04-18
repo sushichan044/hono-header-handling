@@ -1,8 +1,19 @@
 diff --git a/dist/context.js b/dist/context.js
-index 48e701500b480172115deeda5c05503976d5b2fa..50c486d76456cfa51673d56384cd745ca74b4a03 100644
+index 48e701500b480172115deeda5c05503976d5b2fa..56e14ed4b2dbb2422c41e554d2ce523132692425 100644
 --- a/dist/context.js
 +++ b/dist/context.js
-@@ -90,6 +90,8 @@ var Context = class {
+@@ -55,6 +55,10 @@ var Context = class {
+     }
+   }
+   get res() {
++    // Get caller information
++    const stack = new Error().stack;
++    const caller = stack ? stack.split('\n')[2] : 'Unknown caller';
++    console.log(`Context.res is called. Caller: ${caller}`);
+     this.#isFresh = false;
+     return this.#res ||= new Response("404 Not Found", { status: 404 });
+   }
+@@ -90,6 +94,8 @@ var Context = class {
      this.#renderer = renderer;
    };
    header = (name, value, options) => {
@@ -11,7 +22,7 @@ index 48e701500b480172115deeda5c05503976d5b2fa..50c486d76456cfa51673d56384cd745c
      if (this.finalized) {
        this.#res = new Response(this.#res.body, this.#res);
      }
-@@ -126,6 +128,12 @@ var Context = class {
+@@ -126,6 +132,12 @@ var Context = class {
          this.res.headers.set(name, value);
        }
      }
@@ -24,7 +35,7 @@ index 48e701500b480172115deeda5c05503976d5b2fa..50c486d76456cfa51673d56384cd745c
    };
    status = (status) => {
      this.#isFresh = false;
-@@ -145,6 +153,8 @@ var Context = class {
+@@ -145,6 +157,8 @@ var Context = class {
      return Object.fromEntries(this.#var);
    }
    #newResponse(data, arg, headers) {
@@ -33,7 +44,7 @@ index 48e701500b480172115deeda5c05503976d5b2fa..50c486d76456cfa51673d56384cd745c
      if (this.#isFresh && !headers && !arg && this.#status === 200) {
        return new Response(data, {
          headers: this.#preparedHeaders
-@@ -172,6 +182,11 @@ var Context = class {
+@@ -172,6 +186,11 @@ var Context = class {
      this.#headers ??= new Headers();
      setHeaders(this.#headers, this.#preparedHeaders);
      if (this.#res) {
@@ -45,7 +56,7 @@ index 48e701500b480172115deeda5c05503976d5b2fa..50c486d76456cfa51673d56384cd745c
        this.#res.headers.forEach((v, k) => {
          if (k === "set-cookie") {
            this.#headers?.append(k, v);
-@@ -179,6 +194,12 @@ var Context = class {
+@@ -179,6 +198,12 @@ var Context = class {
            this.#headers?.set(k, v);
          }
        });
