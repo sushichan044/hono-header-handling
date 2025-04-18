@@ -33,6 +33,7 @@ ref: <https://github.com/honojs/hono/blob/5ca6c6ef867e022671b4c429c04d0ff89ed0c3
 
 > [!NOTE]
 > All subsequent `c.header()` calls will mutate `Context.#headers`.
+> 
 > ref: <https://github.com/honojs/hono/blob/5ca6c6ef867e022671b4c429c04d0ff89ed0c37c/src/context.ts#L531-L545>
 
 ---
