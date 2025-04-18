@@ -24,6 +24,8 @@ This bug occurs in implementations that meet the following two conditions:
   1. Run `c.header(FOO,BAR,{append:true})` and then run `c.header` to set the `Content-Type` header.
   2. Access `Context.res` getter before `Context.#newResponse` is called.
 
+In practice, this behavior can occur depending on the combination and order of various Middlewares.
+
 ## Detailed Description
 
 This section explains the cause of the problem in detail, following the flow of the reproduced implementation of `src/index.ts`.
