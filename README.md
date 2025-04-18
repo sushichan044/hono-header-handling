@@ -15,7 +15,8 @@
 6. Then open your browser.
 7. On the first access, you will see text of HTML.
     - ![<html><head><meta charset='UTF-8'></head><body><h1>Hello World</h1></body></html>](./docs/images/text-html.png)
-8. And after reloading your browser once, you will see a HTML.
+8. And after reloading your browser once, you will see a normal page.
+    - This is because the browser automatically sends a cookie if there is one, so the branch that calls `c.header()` with `append: true` is omitted from the second time.
 
 ## Cause of the issue
 
